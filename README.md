@@ -1,16 +1,38 @@
-Resumo do Sistema de Restaurantes
+Este projeto simula um sistema de delivery online com cadastro de restaurantes e cardápios, consulta de informações e realização de pedidos simples. O sistema é totalmente interativo via terminal e implementado usando programação procedural em Python.
 
-Esse é um sistema simples feito em Python, onde dá pra:
+---
 
-Cadastrar restaurantes com nome e categoria.
+## Funcionalidades disponíveis
 
-Ver a lista de restaurantes que já foram cadastrados.
+### 1. Cadastrar restaurante
+Permite adicionar um novo restaurante com nome e categoria.
 
-Adicionar itens com preço ao cardápio de um restaurante.
+### 2. Ver restaurantes cadastrados
+Lista todos os restaurantes já cadastrados no sistema.
 
-Consultar o cardápio de um restaurante específico.
+### 3. Adicionar item ao cardápio
+Adiciona um novo item (prato) ao cardápio de um restaurante existente.
 
+### 4. Consultar cardápio do restaurante
+Exibe todos os itens de um restaurante específico.
 
-Tudo funciona com menus que vão aparecendo e o usuário escolhe o que quer fazer. Os dados ficam salvos em dicionários e listas dentro do próprio programa.
+### 5. Remover restaurante
+Exclui um restaurante do sistema, incluindo seu cardápio.
 
-Por enquanto, o básico tá funcionando bem, mas ainda faltam algumas funções que vão deixar o sistema mais completo — como mexer com pedidos, avaliações e outras melhorias que ainda vão ser implementadas.
+### 6. Remover item do cardápio
+Permite remover um prato específico do cardápio de um restaurante.
+
+### 7. Ver detalhes do restaurante
+Exibe todas as informações de um restaurante, incluindo seu nome, categoria e itens do cardápio com preços.
+
+### 8. Filtrar restaurantes por categoria
+Permite buscar restaurantes que pertençam a uma determinada categoria, como "Pizza", "Lanches", etc.
+
+### 9. Simular entrega de pedido
+Simula o envio e entrega de um pedido para um restaurante escolhido.
+
+### 10. Fazer pedido (adicionar itens ao carrinho)
+O usuário escolhe um restaurante, visualiza o cardápio, adiciona itens ao carrinho e vê o resumo com o total antes de "finalizar" o pedido.
+
+### 11. Sair
+Encerra o programa.
