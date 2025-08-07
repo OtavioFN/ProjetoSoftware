@@ -1,6 +1,7 @@
 restaurantes_cadastrados = {}
 
 def cadastrar_restaurante(nome, categoria):
+    nome = nome.lower().strip()
     restaurantes_cadastrados[nome] = {
         "categoria": categoria,
         "cardapio": []
@@ -17,6 +18,10 @@ def ver_restaurantes_cadastrados():
     print()
 
 def adicionar_item_ao_cardapio(nome_restaurante, item, preco):
+    for prato in restaurantes_cadastrados[nome_restaurante]["cardapio"]:
+        if item in prato:
+            print("Este item já existe no cardápio.\n")
+            return
     item = {item: preco}
     restaurantes_cadastrados[nome_restaurante]["cardapio"].append(item)
     print(f"Item '{list(item.keys())[0]}' adicionado ao cardápio de {nome_restaurante}.\n")
@@ -43,6 +48,9 @@ def remover_restaurante(nome):
         print("Restaurante não encontrado.\n")
 
 def remover_item_do_cardapio(nome_restaurante, nome_item):
+    if nome_restaurante not in restaurantes_cadastrados:
+        print("Restaurante não encontrado.\n")
+        return
     cardapio = restaurantes_cadastrados[nome_restaurante]["cardapio"]
     for item in cardapio:
         if nome_item in item:
@@ -83,7 +91,7 @@ def realizar_pedido():
     print("Restaurantes disponíveis:")
     for nome in restaurantes_cadastrados:
         print(f"- {nome}")
-    nome_restaurante = input("Digite o nome do restaurante para fazer o pedido: ").strip()
+    nome_restaurante = input("Digite o nome do restaurante para fazer o pedido: ").strip().lower()
 
     if nome_restaurante not in restaurantes_cadastrados:
         print("Restaurante não encontrado.\n")
@@ -126,9 +134,8 @@ def realizar_pedido():
     print(f"Total a pagar: R$ {total:.2f}\n")
     print("Pedido finalizado com sucesso!\n")
 
-# Menu principal
 while True:
-    print("======= Menu =======")
+    print("======= Otavio's Food Service =======")
     print("1 - Cadastrar restaurante")
     print("2 - Ver restaurantes cadastrados")
     print("3 - Adicionar item ao cardápio")
@@ -140,7 +147,7 @@ while True:
     print("9 - Simular entrega de pedido")
     print("10 - Fazer pedido (adicionar itens ao carrinho)")
     print("11 - Sair")
-    
+
     try:
         opcao = int(input("Informe a opção desejada: "))
     except ValueError:
@@ -149,7 +156,7 @@ while True:
 
     if opcao == 1:
         nome = input("Informe o nome do restaurante: ").strip()
-        if nome in restaurantes_cadastrados:
+        if nome.lower() in restaurantes_cadastrados:
             print("Já existe um restaurante com esse nome!\n")
             continue
         categoria = input("Informe a categoria do restaurante: ").strip()
@@ -157,14 +164,12 @@ while True:
             cadastrar_restaurante(nome, categoria)
         else:
             print("Escreva um nome e uma categoria válidos.\n")
-        continue
 
     elif opcao == 2:
         ver_restaurantes_cadastrados()
-        continue
 
     elif opcao == 3:
-        nome_restaurante = input("Informe o nome do restaurante: ").strip()
+        nome_restaurante = input("Informe o nome do restaurante: ").strip().lower()
         if nome_restaurante not in restaurantes_cadastrados:
             print("Esse restaurante não existe!\n")
             continue
@@ -175,33 +180,35 @@ while True:
             print("Preço inválido. Use apenas números.\n")
             continue
         adicionar_item_ao_cardapio(nome_restaurante, nome_item, preco_item)
-        continue
 
     elif opcao == 4:
-        restaurante_consultado = input("Informe o nome do restaurante a ser consultado: ").strip()
+        restaurante_consultado = input("Informe o nome do restaurante a ser consultado: ").strip().lower()
         consultar_cardapio_restaurante(restaurante_consultado)
-        continue
 
     elif opcao == 5:
-        nome = input("Informe o nome do restaurante a remover: ").strip()
+        nome = input("Informe o nome do restaurante a remover: ").strip().lower()
         remover_restaurante(nome)
-        continue
 
     elif opcao == 6:
-        nome_restaurante = input("Informe o nome do restaurante: ").strip()
+        nome_restaurante = input("Informe o nome do restaurante: ").strip().lower()
         if nome_restaurante not in restaurantes_cadastrados:
             print("Restaurante não encontrado.\n")
             continue
         nome_item = input("Informe o nome do item a remover: ").strip()
         remover_item_do_cardapio(nome_restaurante, nome_item)
-        continue
 
     elif opcao == 7:
-        nome = input("Informe o nome do restaurante que deseja ver os detalhes: ").strip()
+        nome = input("Informe o nome do restaurante que deseja ver os detalhes: ").strip().lower()
         ver_detalhes_restaurante(nome)
-        continue
 
     elif opcao == 8:
+        print("Categorias disponíveis:")
+        categorias_mostradas = set()
+        for r in restaurantes_cadastrados.values():
+            cat = r['categoria'].capitalize()
+            if cat not in categorias_mostradas:
+                print(f"- {cat}")
+                categorias_mostradas.add(cat)
         categoria = input("Informe a categoria para filtrar os restaurantes: ").strip()
         encontrados = False
         for nome, dados in restaurantes_cadastrados.items():
@@ -211,16 +218,13 @@ while True:
         if not encontrados:
             print("Nenhum restaurante encontrado para essa categoria.\n")
         print()
-        continue
 
     elif opcao == 9:
-        nome_restaurante = input("Informe o nome do restaurante para simular a entrega: ").strip()
+        nome_restaurante = input("Informe o nome do restaurante para simular a entrega: ").strip().lower()
         simular_entrega(nome_restaurante)
-        continue
 
     elif opcao == 10:
         realizar_pedido()
-        continue
 
     elif opcao == 11:
         print("Programa finalizado com sucesso!")
